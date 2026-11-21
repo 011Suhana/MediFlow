@@ -1,0 +1,451 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prescription Management | MediFlow</title>
+    <link rel="stylesheet" href="prescription.css">
+</head>
+<body>
+
+    <!-- Navigation Bar -->
+    <header class="navbar">
+        <a href="index.html" class="logo">
+            <span class="logo-icon">✚</span>
+            <span>Medi<span class="highlight">Flow</span></span>
+        </a>
+
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="dashboard.html">Dashboard</a>
+            <a href="prescription.html" class="nav-link">Prescriptions</a>
+            <a href="catalogue.html">Catalogue</a>
+            <a href="review.html">Review</a>
+            <a href="orders.html">Orders</a>
+            <a href="login.html" class="logout">Logout</a>
+        </nav>
+    </header>
+
+    <!-- Page Heading -->
+    <main class="container">
+
+        <section class="page-heading">
+            <div>
+                <p class="eyebrow">PRESCRIPTION MANAGEMENT</p>
+                <h1>Manage Your Prescriptions</h1>
+                <p class="subtitle">
+                    Submit prescription details and track demo requests
+                    in one convenient place.
+                </p>
+            </div>
+
+            <div class="heading-icon">✚</div>
+        </section>
+
+        <!-- Important Notice -->
+        <div class="notice">
+            <strong>Important:</strong>
+            This is a student project demonstration. Do not upload real
+            prescriptions or enter real patient information. Prescription
+            verification must be completed by an authorized pharmacist.
+        </div>
+
+        <!-- Prescription Form -->
+        <section class="card">
+
+            <div class="card-heading">
+                <div>
+                    <h2>Submit a Prescription</h2>
+                    <p>Enter sample information for your demonstration.</p>
+                </div>
+
+                <span class="demo-badge">DEMO FORM</span>
+            </div>
+
+            <form id="prescriptionForm">
+
+                <div class="form-grid">
+
+                    <!-- Patient Name -->
+                    <div class="form-group">
+                        <label for="patientName">Patient Name (Demo)</label>
+                        <input
+                            type="text"
+                            id="patientName"
+                            placeholder="Example: Demo Patient"
+                            required
+                        >
+                    </div>
+
+                    <!-- Prescription ID -->
+                    <div class="form-group">
+                        <label for="prescriptionId">Prescription ID</label>
+                        <input
+                            type="text"
+                            id="prescriptionId"
+                            placeholder="Generated automatically"
+                            readonly
+                        >
+                    </div>
+
+                    <!-- Medicine Name -->
+                    <div class="form-group full-width">
+                        <label for="medicine">Medicine Name (Demo)</label>
+                        <input
+                            type="text"
+                            id="medicine"
+                            placeholder="Enter a sample medicine name"
+                            required
+                        >
+                    </div>
+
+                    <!-- Doctor -->
+                    <div class="form-group">
+                        <label for="doctor">Prescribing Doctor (Demo)</label>
+                        <input
+                            type="text"
+                            id="doctor"
+                            placeholder="Example: Dr. Demo"
+                            required
+                        >
+                    </div>
+
+                    <!-- Date -->
+                    <div class="form-group">
+                        <label for="date">Prescription Date</label>
+                        <input type="date" id="date" required>
+                    </div>
+
+                    <!-- Dosage -->
+                    <div class="form-group">
+                        <label for="dosage">Dosage Information</label>
+                        <input
+                            type="text"
+                            id="dosage"
+                            name="dosage"
+                            placeholder="Example: As written on prescription"
+                            required
+                        >
+                    </div>
+
+                    <!-- Frequency -->
+                    <div class="form-group">
+                        <label for="frequency">Frequency</label>
+                        <select id="frequency" name="frequency" required>
+                            <option value="">Select Frequency</option>
+                            <option>Once daily</option>
+                            <option>Twice daily</option>
+                            <option>Three times daily</option>
+                            <option>As prescribed</option>
+                        </select>
+                    </div>
+
+                    <!-- Additional Instructions -->
+                    <div class="form-group full-width">
+                        <label for="instructions">
+                            Additional Instructions
+                        </label>
+
+                        <textarea
+                            id="instructions"
+                            name="instructions"
+                            rows="3"
+                            placeholder="Enter sample prescription instructions"
+                        ></textarea>
+                    </div>
+
+                    <!-- Additional Notes -->
+                    <div class="form-group full-width">
+                        <label for="notes">Additional Notes (Optional)</label>
+                        <textarea
+                            id="notes"
+                            rows="3"
+                            placeholder="Enter demo notes only"
+                        ></textarea>
+                    </div>
+
+                    <!-- Upload Prescription -->
+                    <div class="form-group full-width">
+
+                        <label for="prescriptionFile">
+                            Upload Prescription Image (Demo)
+                        </label>
+
+                        <label class="upload-box" for="prescriptionFile">
+                            <span class="upload-icon">↑</span>
+                            <strong>Choose a sample file</strong>
+                            <span>JPG, PNG or PDF</span>
+                        </label>
+
+                        <input
+                            type="file"
+                            id="prescriptionFile"
+                            accept=".jpg,.jpeg,.png,.pdf"
+                        >
+
+                        <p id="fileName" class="file-name">
+                            No file selected
+                        </p>
+
+                    </div>
+
+                </div>
+
+                <!-- Buttons AFTER all form fields -->
+                <div class="form-actions">
+
+                    <button type="reset" class="secondary-button">
+                        Clear Form
+                    </button>
+
+                    <button type="submit" class="primary-button">
+                        Submit Prescription →
+                    </button>
+
+                </div>
+
+                <p id="message" class="message" role="status"></p>
+
+            </form>
+        </section>
+
+        <!-- Submitted Prescriptions -->
+        <section class="card submitted-section">
+
+            <div class="card-heading">
+                <div>
+                    <h2>Submitted Prescriptions</h2>
+                    <p>Prescriptions added during this browser session.</p>
+                </div>
+
+                <span class="count-badge" id="prescriptionCount">0</span>
+            </div>
+
+            <div class="table-wrapper">
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Prescription ID</th>
+                            <th>Patient</th>
+                            <th>Medicine</th>
+                            <th>Dosage</th>
+                            <th>Frequency</th>
+                            <th>Date</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+
+                    <tbody id="prescriptionTable">
+                        <tr id="emptyRow">
+                            <td colspan="7" class="empty-state">
+                                No demo prescriptions submitted yet.
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+            </div>
+
+            <p class="table-note">
+                Demo records are kept in the current page only and are
+                not saved to a database.
+            </p>
+
+        </section>
+
+    </main>
+
+    <footer>
+        <p>© 2026 MediFlow Pharmacy | Student Project Demo</p>
+    </footer>
+
+    <script>
+
+        const form = document.getElementById("prescriptionForm");
+        const fileInput = document.getElementById("prescriptionFile");
+        const fileName = document.getElementById("fileName");
+        const message = document.getElementById("message");
+        const table = document.getElementById("prescriptionTable");
+        const count = document.getElementById("prescriptionCount");
+
+        let prescriptionNumber = 1005;
+        let totalPrescriptions = 0;
+
+        // Set today's date.
+        function setDefaultDate() {
+            document.getElementById("date").value =
+                new Date().toISOString().slice(0, 10);
+        }
+
+        setDefaultDate();
+
+        // Generate prescription ID.
+        function generatePrescriptionId() {
+            return "RX" + prescriptionNumber;
+        }
+
+        document.getElementById("prescriptionId").value =
+            generatePrescriptionId();
+
+        // Display selected filename.
+        fileInput.addEventListener("change", function() {
+
+            if (fileInput.files.length > 0) {
+
+                const file = fileInput.files[0];
+
+                if (file.size > 5 * 1024 * 1024) {
+                    alert("Please select a file smaller than 5 MB.");
+                    fileInput.value = "";
+                    fileName.textContent = "No file selected";
+                    return;
+                }
+
+                fileName.textContent = file.name;
+
+            } else {
+                fileName.textContent = "No file selected";
+            }
+
+        });
+
+        // Submit prescription.
+        form.addEventListener("submit", function(event) {
+
+            event.preventDefault();
+
+            const patient =
+                document.getElementById("patientName").value.trim();
+
+            const medicine =
+                document.getElementById("medicine").value.trim();
+
+            const doctor =
+                document.getElementById("doctor").value.trim();
+
+            const date =
+                document.getElementById("date").value;
+
+            const dosage =
+                document.getElementById("dosage").value.trim();
+
+            const frequency =
+                document.getElementById("frequency").value;
+
+            const file = fileInput.files[0];
+
+            if (!patient || !medicine || !doctor || !date ||
+                !dosage || !frequency) {
+
+                message.textContent =
+                    "Please fill in all required fields.";
+
+                message.className = "message error";
+                return;
+            }
+
+            if (file && file.size > 5 * 1024 * 1024) {
+
+                message.textContent =
+                    "The selected file exceeds 5 MB.";
+
+                message.className = "message error";
+                return;
+            }
+
+            const id = generatePrescriptionId();
+
+            // Remove empty message.
+            const emptyRow = document.getElementById("emptyRow");
+
+            if (emptyRow) {
+                emptyRow.remove();
+            }
+
+            // Create table row.
+            const row = document.createElement("tr");
+
+            const values = [
+                id,
+                patient,
+                medicine,
+                dosage,
+                frequency,
+                date,
+                "Pending Review"
+            ];
+
+            values.forEach(function(value, index) {
+
+                const cell = document.createElement("td");
+
+                if (index === 6) {
+
+                    const badge = document.createElement("span");
+
+                    badge.className = "status pending";
+                    badge.textContent = value;
+
+                    cell.appendChild(badge);
+
+                } else {
+
+                    cell.textContent = value;
+
+                }
+
+                row.appendChild(cell);
+
+            });
+
+            table.prepend(row);
+
+            // Update count and ID.
+            prescriptionNumber++;
+            totalPrescriptions++;
+
+            count.textContent = totalPrescriptions;
+
+            // Show success message.
+            message.textContent =
+                "Demo prescription added successfully. It has not been sent to a pharmacy.";
+
+            message.className = "message success";
+
+            // Reset form.
+            form.reset();
+
+            setDefaultDate();
+
+            document.getElementById("prescriptionId").value =
+                generatePrescriptionId();
+
+            fileName.textContent = "No file selected";
+
+        });
+
+        // Reset filename and message.
+        form.addEventListener("reset", function() {
+
+            setTimeout(function() {
+
+                fileName.textContent = "No file selected";
+
+                message.textContent = "";
+                message.className = "message";
+
+                setDefaultDate();
+
+                document.getElementById("prescriptionId").value =
+                    generatePrescriptionId();
+
+            }, 0);
+
+        });
+
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,114 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login | MediFlow Pharmacy</title>
+    <link rel="stylesheet" href="login.css">
+</head>
+<body>
+
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <a href="index.html" class="logo">
+            <span class="logo-icon">✚</span>
+            <span>Medi<span class="highlight">Flow</span></span>
+        </a>
+
+        <a href="index.html" class="home-link">← Back to Home</a>
+    </nav>
+
+    <!-- Login Section -->
+    <main class="login-container">
+
+        <div class="login-card">
+
+            <div class="medical-icon">✚</div>
+
+            <h1>Welcome Back!</h1>
+            <p class="subtitle">Log in to your MediFlow account</p>
+
+            <form id="loginForm">
+
+                <div class="form-group">
+                    <label for="email">Email Address</label>
+                    <input
+                        type="email"
+                        id="email"
+                        placeholder="Enter your email"
+                        required
+                    >
+                </div>
+
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input
+                        type="password"
+                        id="password"
+                        placeholder="Enter your password"
+                        required
+                    >
+                </div>
+
+                <div class="form-options">
+                    <label class="remember">
+                        <input type="checkbox" id="remember">
+                        Remember me
+                    </label>
+
+                    <a href="#" id="forgotPassword">Forgot password?</a>
+                </div>
+
+                <button type="submit" class="login-button">
+                    Log In
+                </button>
+
+                <p id="message" class="message"></p>
+
+            </form>
+
+            <div class="divider">
+                <span>OR</span>
+            </div>
+
+            <p class="signup-text">
+                Don't have an account?
+                <a href="signup.html">Sign Up</a>
+            </p>
+
+            <p class="security-note">
+                Your health matters. Your information should stay protected.
+            </p>
+
+        </div>
+
+    </main>
+
+    <footer>
+        <p>© 2026 MediFlow Pharmacy. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // Demo login form
+        const loginForm = document.getElementById("loginForm");
+        const message = document.getElementById("message");
+
+        loginForm.addEventListener("submit", function(event) {
+    event.preventDefault();
+
+    // Frontend demo only; no real authentication.
+    window.location.href = "dashboard.html";
+});
+
+        document.getElementById("forgotPassword")
+            .addEventListener("click", function(event) {
+                event.preventDefault();
+                message.textContent =
+                    "Password recovery is not available in this demo.";
+                message.style.color = "#b45309";
+            });
+    </script>
+
+</body>
+</html>

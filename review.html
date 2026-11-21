@@ -1,0 +1,265 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reviews | MediFlow</title>
+    <link rel="stylesheet" href="review.css">
+</head>
+<body>
+
+    <!-- Navigation -->
+    <header class="navbar">
+        <a href="index.html" class="logo">✚ Medi<span>Flow</span></a>
+
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="dashboard.html">Dashboard</a>
+            <a href="prescription.html">Prescriptions</a>
+            <a href="catalogue.html">Catalogue</a>
+            <a href="review.html" class="active">Reviews</a>
+            <a href="orders.html">Orders</a>
+            <a href="login.html" class="logout">Logout</a>
+        </nav>
+    </header>
+
+    <!-- Page Heading -->
+    <section class="hero">
+        <span class="tagline">TRUST • CARE • TRANSPARENCY</span>
+        <h1>MediFlow Reviews</h1>
+        <p>Share your experience and manage prescription reviews.</p>
+    </section>
+
+    <main class="container">
+
+        <!-- Section 1: Customer Reviews -->
+        <section class="section-card">
+            <div class="section-heading">
+                <div>
+                    <span class="section-label">CUSTOMER EXPERIENCE</span>
+                    <h2>⭐ Customer Reviews</h2>
+                    <p>Tell us about your experience with MediFlow.</p>
+                </div>
+            </div>
+
+            <form id="customerReviewForm" class="review-form">
+                <div class="form-group">
+                    <label for="customerName">Your Name</label>
+                    <input type="text" id="customerName"
+                           placeholder="Enter your name" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="rating">Your Rating</label>
+                    <select id="rating" required>
+                        <option value="">Choose a rating</option>
+                        <option value="5">★★★★★ — Excellent</option>
+                        <option value="4">★★★★ — Very Good</option>
+                        <option value="3">★★★ — Good</option>
+                        <option value="2">★★ — Fair</option>
+                        <option value="1">★ — Poor</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="reviewText">Your Feedback</label>
+                    <textarea id="reviewText" rows="4"
+                              placeholder="Write your feedback..."
+                              required></textarea>
+                </div>
+
+                <button type="submit" class="primary-btn">
+                    Submit Review
+                </button>
+                <p id="reviewMessage" class="message"
+                   aria-live="polite"></p>
+            </form>
+
+            <h3 class="subheading">Recent Customer Reviews</h3>
+            <div id="customerReviews" class="customer-reviews">
+                <article class="customer-review">
+                    <div class="review-top">
+                        <strong>Demo Customer</strong>
+                        <span class="stars">★★★★★</span>
+                    </div>
+                    <p>The website is easy to navigate.</p>
+                    <small>Sample review for demonstration</small>
+                </article>
+            </div>
+        </section>
+
+        <!-- Section 2: Pharmacist Prescription Reviews -->
+        <section class="section-card">
+            <div class="section-heading">
+                <div>
+                    <span class="section-label">PHARMACIST WORKSPACE</span>
+                    <h2>💊 Prescription Reviews</h2>
+                    <p>Review sample prescriptions and update their status.</p>
+                </div>
+                <span class="demo-badge">DEMO DATA</span>
+            </div>
+
+            <div class="notice">
+                This is a college-project demonstration. These buttons do not
+                verify prescriptions or provide medical approval.
+            </div>
+
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <thead>
+                             <tr>
+                                <th>Prescription ID</th>
+                                 <th>Patient Name</th>
+                                 <th>Medicine</th>
+                                 <th>Dosage</th>
+                                 <th>Quantity</th>
+                                 <th>Status</th>
+                                </tr>
+                            
+                        </thead>
+
+                    <tbody id="prescriptionTable">
+                        <tr>
+                            <td>RX1001</td>
+                            <td>Sample Patient A</td>
+                            <td>26 Oct 2026</td>
+                            <td><span class="status pending">Pending</span></td>
+                            <td class="actions">
+                                <button class="approve-btn"
+                                        onclick="updateStatus(this, 'Approved')">
+                                    Approve
+                                </button>
+                                <button class="reject-btn"
+                                        onclick="updateStatus(this, 'Rejected')">
+                                    Reject
+                                </button>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>RX1002</td>
+                            <td>Sample Patient B</td>
+                            <td>25 Oct 2026</td>
+                            <td><span class="status pending">Pending</span></td>
+                            <td class="actions">
+                                <button class="approve-btn"
+                                        onclick="updateStatus(this, 'Approved')">
+                                    Approve
+                                </button>
+                                <button class="reject-btn"
+                                        onclick="updateStatus(this, 'Rejected')">
+                                    Reject
+                                </button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>PR001</td>
+                            <td>Rahul Sharma</td>
+                            <td>Paracetamol</td>
+                            <td>500 mg</td>
+                            <td>10</td>
+                            <td>Pending</td>
+                        </tr>
+
+                        <tr>
+                            <td>RX1003</td>
+                            <td>Sample Patient C</td>
+                            <td>24 Oct 2026</td>
+                            <td><span class="status approved">Approved</span></td>
+                            <td class="actions">
+                                <button class="approve-btn"
+                                        onclick="updateStatus(this, 'Approved')">
+                                    Approve
+                                </button>
+                                <button class="reject-btn"
+                                        onclick="updateStatus(this, 'Rejected')">
+                                    Reject
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <p id="prescriptionMessage" class="message"
+               aria-live="polite"></p>
+        </section>
+
+    </main>
+
+    <footer>
+        <h3>MediFlow</h3>
+        <p>Smarter prescription management, simplified.</p>
+        <p>© 2026 MediFlow | Student Project Demo</p>
+    </footer>
+
+    <script>
+        // Customer review form: adds a review to this page only.
+        document.getElementById("customerReviewForm")
+            .addEventListener("submit", function(event) {
+                event.preventDefault();
+
+                const name = document.getElementById("customerName")
+                    .value.trim();
+                const rating = document.getElementById("rating").value;
+                const feedback = document.getElementById("reviewText")
+                    .value.trim();
+
+                if (!name || !rating || !feedback) {
+                    return;
+                }
+
+                const article = document.createElement("article");
+                article.className = "customer-review";
+
+                const top = document.createElement("div");
+                top.className = "review-top";
+
+                const customer = document.createElement("strong");
+                customer.textContent = name;
+
+                const stars = document.createElement("span");
+                stars.className = "stars";
+                stars.textContent = "★".repeat(Number(rating));
+
+                const comment = document.createElement("p");
+                comment.textContent = feedback;
+
+                const note = document.createElement("small");
+                note.textContent = "Submitted during this demo session";
+
+                top.append(customer, stars);
+                article.append(top, comment, note);
+
+                document.getElementById("customerReviews")
+                    .prepend(article);
+
+                document.getElementById("reviewMessage").textContent =
+                    "Thank you! Your demo review has been added.";
+
+                this.reset();
+            });
+
+        // Demo status change only; not real prescription verification.
+        function updateStatus(button, newStatus) {
+            const row = button.closest("tr");
+            const statusCell = row.cells[3];
+
+            statusCell.replaceChildren();
+
+            const badge = document.createElement("span");
+            badge.className = "status " + newStatus.toLowerCase();
+            badge.textContent = newStatus;
+            statusCell.appendChild(badge);
+
+            document.getElementById("prescriptionMessage").textContent =
+                row.cells[0].textContent +
+                " status changed to " + newStatus +
+                " for this demo session.";
+        }
+    </script>
+
+</body>
+</html>

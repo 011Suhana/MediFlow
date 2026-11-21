@@ -1,0 +1,484 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MediFlow - Dashboard</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        :root {
+            --primary: #1b8045;
+            --primary-dark: #2a582c;
+            --navy: #135718;
+            --background: #e9ece9;
+            --white: #ffffff;
+            --text: #263746;
+            --muted: #718096;
+            --border: #e3edf2;
+        }
+
+        body {
+            background-color: var(--background);
+            color: var(--text);
+        }
+
+        /* Navbar */
+        nav {
+            
+            background: var(--white);
+            padding: 20px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 12px rgba(23, 50, 77, 0.07);
+            flex-wrap: wrap;
+            gap: 15px;
+            display: flex;
+        }
+        
+        
+
+        .logo {
+            font-size: 26px;
+            font-weight: bold;
+            color: var(--primary);
+        }
+
+        .logo span {
+            color: var(--navy);
+        }
+
+        nav a {
+            text-decoration: none;
+            color: var(--muted);
+            margin-left: 22px;
+            font-size: 14px;
+            font-weight: 450;
+            transition: 0.3s;
+        }
+
+        nav a:hover,
+        nav a.active {
+            color: var(--primary);
+        }
+
+        .logout {
+            color: #c24141
+            
+        }
+
+        .logout:hover {
+            color: darkred;
+        }
+
+        /* Main container */
+        .container {
+            width: 90%;
+            max-width: 1250px;
+            margin: 35px auto;
+        }
+
+        /* Welcome section */
+        .welcome {
+            margin-bottom: 30px;
+        }
+
+        .welcome h1 {
+            font-size: 29px;
+            color: var(--navy);
+            margin-bottom: 10px;
+        }
+
+        .welcome p {
+            color: var(--muted);
+            font-size: 15px;
+        }
+
+        /* Summary cards */
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .card {
+            background: var(--white);
+            padding: 25px;
+            border-radius: 12px;
+            border: 1px solid var(--border);
+            box-shadow: 0 4px 14px rgba(23, 50, 77, 0.04);
+            transition: 0.3s;
+        }
+
+        .card:hover,
+        .action:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 20px rgba(23, 50, 77, 0.09);
+        }
+
+        .card p {
+            color: var(--muted);
+            margin-bottom: 15px;
+            font-size: 14px;
+        }
+
+        .card h2 {
+            font-size: 31px;
+            color: var(--primary);
+        }
+
+        /* Section headings */
+        .section-title {
+            margin-bottom: 20px;
+            color: var(--navy);
+            font-size: 22px;
+        }
+
+        /* Quick actions */
+        .actions {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .action {
+            background: var(--white);
+            padding: 25px 18px;
+            border-radius: 12px;
+            text-align: center;
+            border: 1px solid var(--border);
+            box-shadow: 0 4px 14px rgba(23, 50, 77, 0.04);
+            transition: 0.3s;
+        }
+
+        .action h3 {
+            font-size: 17px;
+            color: var(--navy);
+            margin-bottom: 18px;
+        }
+
+        .action a {
+            display: inline-block;
+            background: var(--primary);
+            color: white;
+            text-decoration: none;
+            padding: 11px 17px;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 600;
+            transition: 0.3s;
+        }
+
+        .action a:hover {
+            background: var(--primary-dark);
+        }
+
+        /* Recent prescriptions table */
+        .table-box {
+            background: var(--white);
+            padding: 25px;
+            border-radius: 12px;
+            border: 1px solid var(--border);
+            box-shadow: 0 4px 14px rgba(23, 50, 77, 0.04);
+            margin-bottom: 35px;
+            overflow-x: auto;
+        }
+
+        .table-box h2,
+        .pending-box h2 {
+            color: var(--navy);
+            font-size: 21px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            min-width: 600px;
+        }
+
+        th, td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid var(--border);
+            font-size: 14px;
+        }
+
+        th {
+            background: #f0f7fa;
+            color: var(--navy);
+        }
+
+        td {
+            color: var(--text);
+        }
+
+        tr:hover td {
+            background: #f8fbfd;
+        }
+
+        .status {
+            display: inline-block;
+            padding: 6px 11px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .pending {
+            background: #fff3d6;
+            color: #a66a00;
+        }
+
+        .verified {
+            background: #dcf5e9;
+            color: #16804a;
+        }
+
+        .processing {
+            background: #e1efff;
+            color: #2865a5;
+        }
+
+        /* Pending verification */
+        .pending-box {
+            background: var(--white);
+            padding: 25px;
+            border-radius: 12px;
+            border: 1px solid var(--border);
+            box-shadow: 0 4px 14px rgba(23, 50, 77, 0.04);
+        }
+
+        .pending-box p {
+            margin-top: 18px;
+            line-height: 1.7;
+            color: var(--muted);
+            padding: 14px;
+            background: #f7fafc;
+            border-radius: 8px;
+            border-left: 4px solid var(--primary);
+        }
+
+        .pending-box strong {
+            color: var(--navy);
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 22px;
+            color: var(--muted);
+            font-size: 14px;
+            margin-top: 35px;
+        }
+
+        /* Responsive design */
+        @media (max-width: 900px) {
+            .cards,
+            .actions {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            nav {
+                justify-content: center;
+            }
+
+            nav a {
+                margin: 0 10px;
+            }
+        }
+
+        @media (max-width: 500px) {
+            .cards,
+            .actions {
+                grid-template-columns: 1fr;
+            }
+
+            .container {
+                width: 92%;
+            }
+
+            .welcome h1 {
+                font-size: 23px;
+            }
+
+            nav {
+                flex-direction: column;
+            }
+
+            nav div:last-child {
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 14px;
+            }
+
+            nav a {
+                margin: 0;
+                font-size: 13px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Navigation Bar -->
+    <nav>
+        <div class="logo">✚ <span>MediFlow</span></div>
+
+        <div>
+            <a href="index.html">Home</a>
+            <a href="dashboard.html" class="active">Dashboard</a>
+            <a href="prescription.html">Prescriptions</a>
+            <a href="catalogue.html">Catalogue</a>
+            <a href="review.html">Review</a>
+            <a href="orders.html">Orders</a>
+            <a href="login.html" class="logout">Logout</a>
+            
+        </div>
+    </nav>
+
+    <div class="container">
+
+        <!-- Welcome Section -->
+        <div class="welcome">
+            <h1>Welcome to the Dashboard!</h1>
+            <p>Manage prescriptions, medicines and orders in one place.</p>
+        </div>
+
+        <!-- Summary Cards -->
+        <div class="cards">
+
+            <div class="card">
+                <p>Total Prescriptions</p>
+                <h2>125</h2>
+            </div>
+
+            <div class="card">
+                <p>Pending Verification</p>
+                <h2>12</h2>
+            </div>
+
+            <div class="card">
+                <p>Orders in Progress</p>
+                <h2>18</h2>
+            </div>
+
+            <div class="card">
+                <p>Completed Orders</p>
+                <h2>95</h2>
+            </div>
+
+        </div>
+
+        <!-- Quick Actions -->
+        <h2 class="section-title">Quick Actions</h2>
+
+        <div class="actions">
+
+            <div class="action">
+                <h3>New Prescription</h3>
+                <a href="prescription.html">Get Started</a>
+            </div>
+
+            <div class="action">
+                <h3>Medicine Catalogue</h3>
+                <a href="catalogue.html">Explore Medicines</a>
+            </div>
+
+            <div class="action">
+                <h3>Review Prescriptions</h3>
+                <a href="review.html">Review Details</a>
+            </div>
+
+            <div class="action">
+                <h3>Track Orders</h3>
+                <a href="orders.html">Track Orders</a>
+            </div>
+
+        </div>
+
+        <!-- Recent Prescriptions -->
+        <div class="table-box">
+
+            <h2>Recent Prescriptions</h2>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Prescription ID</th>
+                        <th>Patient Name</th>
+                        <th>Doctor Name</th>
+                        <th>Date</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr>
+                        <td>PR001</td>
+                        <td>Rahul Sharma</td>
+                        <td>Dr. Mehta</td>
+                        <td>29 Oct 2026</td>
+                        <td><span class="status pending">Pending</span></td>
+                    </tr>
+
+                    <tr>
+                        <td>PR002</td>
+                        <td>Priya Verma</td>
+                        <td>Dr. Singh</td>
+                        <td>28 Oct 2026</td>
+                        <td><span class="status verified">Verified</span></td>
+                    </tr>
+
+                    <tr>
+                        <td>PR003</td>
+                        <td>Aman Gupta</td>
+                        <td>Dr. Kapoor</td>
+                        <td>28 Oct 2026</td>
+                        <td><span class="status processing">Processing</span></td>
+                    </tr>
+                </tbody>
+            </table>
+
+        </div>
+
+        <!-- Pending Verification -->
+        <div class="pending-box">
+
+            <h2>Pending Verification</h2>
+
+            <p>
+                <strong>PR001 - Rahul Sharma</strong><br>
+                Prescription is waiting for review.
+                Please check the entered details.
+            </p>
+
+            <p>
+                <strong>PR004 - Neha Verma</strong><br>
+                Prescription verification is pending.
+            </p>
+
+        </div>
+
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>© 2026 MediFlow | Pharmacy Prescription-Processing System</p>
+    </footer>
+    
+
+</body>
+</html>

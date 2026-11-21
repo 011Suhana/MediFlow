@@ -1,0 +1,272 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Medicine Catalogue | MediFlow</title>
+    <link rel="stylesheet" href="catalogue.css">
+</head>
+<body>
+
+    <!-- Navigation Bar -->
+    <header class="navbar">
+        <a href="index.html" class="logo">
+            <span class="logo-icon">✚</span>
+            Medi<span>Flow</span>
+        </a>
+
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="dashboard.html">Dashboard</a>
+            <a href="prescription.html">Prescriptions</a>
+            <a href="catalogue.html" class="active">Catalogue</a>
+            <a href="review.html">Review</a>
+            <a href="orders.html">Orders</a>
+            <a href="login.html" class="logout">Logout</a>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <p class="tagline">YOUR HEALTH, OUR PRIORITY</p>
+        <h1>Medicine Catalogue</h1>
+        <p>Explore our sample collection of pharmacy products.</p>
+
+        <div class="search-box">
+            <input
+                type="text"
+                id="searchInput"
+                placeholder="Search medicines by name..."
+                aria-label="Search medicines"
+            >
+            <button type="button" onclick="filterMedicines()">Search</button>
+            <button type="button" class="clear-button" onclick="clearSearch()">
+                Clear
+            </button>
+        </div>
+    </section>
+
+    <!-- Catalogue Section -->
+    <section class="catalogue">
+
+        <div class="section-heading">
+            <div>
+                <h2>Explore Medicines</h2>
+                <p>Browse our sample medicine collection.</p>
+                <p id="medicineCount" class="medicine-count"></p>
+            </div>
+
+            <select id="categoryFilter" aria-label="Filter by category">
+                <option value="all">All Categories</option>
+                <option value="Pain Relief">Pain Relief</option>
+                <option value="Vitamins">Vitamins</option>
+                <option value="Allergy">Allergy</option>
+                <option value="Digestive Health">Digestive Health</option>
+            </select>
+        </div>
+
+        <!-- Medicine Cards -->
+        <div class="medicine-grid" id="medicineGrid">
+
+            <div class="medicine-card"
+                 data-name="paracetamol"
+                 data-category="Pain Relief">
+
+                <div class="medicine-icon">💊</div>
+                <span class="category">Pain Relief</span>
+                <h3>Paracetamol</h3>
+                <p>Sample listing for pain and fever relief.</p>
+
+                <div class="medicine-bottom">
+                    <span class="price">₹30</span>
+                    <button type="button" onclick="addToCart('Paracetamol')">
+                        Add to Cart
+                    </button>
+                </div>
+            </div>
+
+            <div class="medicine-card"
+                 data-name="vitamin c"
+                 data-category="Vitamins">
+
+                <div class="medicine-icon">🍊</div>
+                <span class="category">Vitamins</span>
+                <h3>Vitamin C</h3>
+                <p>Sample listing for a vitamin supplement.</p>
+
+                <div class="medicine-bottom">
+                    <span class="price">₹120</span>
+                    <button type="button" onclick="addToCart('Vitamin C')">
+                        Add to Cart
+                    </button>
+                </div>
+            </div>
+
+            <div class="medicine-card"
+                 data-name="cetirizine"
+                 data-category="Allergy">
+
+                <div class="medicine-icon">🌿</div>
+                <span class="category">Allergy</span>
+                <h3>Cetirizine</h3>
+                <p>Sample listing for an allergy medicine.</p>
+
+                <div class="medicine-bottom">
+                    <span class="price">₹25</span>
+                    <button type="button" onclick="addToCart('Cetirizine')">
+                        Add to Cart
+                    </button>
+                </div>
+            </div>
+
+            <div class="medicine-card"
+                 data-name="antacid"
+                 data-category="Digestive Health">
+
+                <div class="medicine-icon">🧴</div>
+                <span class="category">Digestive Health</span>
+                <h3>Antacid</h3>
+                <p>Sample listing for a digestive health product.</p>
+
+                <div class="medicine-bottom">
+                    <span class="price">₹65</span>
+                    <button type="button" onclick="addToCart('Antacid')">
+                        Add to Cart
+                    </button>
+                </div>
+            </div>
+
+            <div class="medicine-card"
+                 data-name="multivitamin"
+                 data-category="Vitamins">
+
+                <div class="medicine-icon">💚</div>
+                <span class="category">Vitamins</span>
+                <h3>Multivitamin</h3>
+                <p>Sample listing for a multivitamin supplement.</p>
+
+                <div class="medicine-bottom">
+                    <span class="price">₹180</span>
+                    <button type="button" onclick="addToCart('Multivitamin')">
+                        Add to Cart
+                    </button>
+                </div>
+            </div>
+
+            <div class="medicine-card"
+                 data-name="ors oral rehydration salts"
+                 data-category="Digestive Health">
+
+                <div class="medicine-icon">💧</div>
+                <span class="category">Digestive Health</span>
+                <h3>ORS</h3>
+                <p>Sample listing for oral rehydration salts.</p>
+
+                <div class="medicine-bottom">
+                    <span class="price">₹22</span>
+                    <button type="button" onclick="addToCart('ORS')">
+                        Add to Cart
+                    </button>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- No Results -->
+        <div id="noResults" class="no-results" hidden>
+            <h3>No Medicines Found</h3>
+            <p>Try another medicine name or select a different category.</p>
+        </div>
+
+        <!-- Cart Information -->
+        <div class="cart-section">
+            <h3>🛒 Cart Summary</h3>
+            <p>Items selected: <strong id="cartCount">0</strong></p>
+            <p id="cartMessage" class="cart-message" aria-live="polite">
+                Your cart is currently empty.
+            </p>
+        </div>
+
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <h3>MediFlow</h3>
+        <p>Smart pharmacy management for a healthier tomorrow.</p>
+
+        <p class="disclaimer">
+            Student project demo. Prices and listings are illustrative,
+            not real offers. Medicines should be used only with appropriate
+            professional guidance.
+        </p>
+
+        <p>© 2026 MediFlow</p>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        let cartCount = 0;
+        const searchInput = document.getElementById("searchInput");
+        const categoryFilter = document.getElementById("categoryFilter");
+
+        function filterMedicines() {
+
+            const searchText = searchInput.value.trim().toLowerCase();
+            const selectedCategory = categoryFilter.value;
+
+            const cards = document.querySelectorAll(".medicine-card");
+
+            let visibleCount = 0;
+
+            cards.forEach(function(card) {
+
+                const name = card.dataset.name;
+                const category = card.dataset.category;
+
+                const matchesName = name.includes(searchText);
+
+                const matchesCategory =
+                    selectedCategory === "all" ||
+                    category === selectedCategory;
+
+                if (matchesName && matchesCategory) {
+                    card.style.display = "";
+                    visibleCount++;
+                } else {
+                    card.style.display = "none";
+                }
+            });
+
+            document.getElementById("noResults").hidden =
+                visibleCount !== 0;
+
+            document.getElementById("medicineCount").textContent =
+                "Showing " + visibleCount + " of " + cards.length + " medicines";
+        }
+
+        function clearSearch() {
+            searchInput.value = "";
+            categoryFilter.value = "all";
+            filterMedicines();
+        }
+
+        function addToCart(medicineName) {
+
+            cartCount++;
+
+            document.getElementById("cartCount").textContent = cartCount;
+
+            document.getElementById("cartMessage").textContent =
+                medicineName + " selected! This is a demonstration cart only.";
+        }
+
+        searchInput.addEventListener("input", filterMedicines);
+        categoryFilter.addEventListener("change", filterMedicines);
+
+        // Display initial medicine count
+        filterMedicines();
+    </script>
+
+</body>
+</html>

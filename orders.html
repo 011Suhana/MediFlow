@@ -1,0 +1,634 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Orders | MediFlow</title>
+
+    <link rel="stylesheet" href="orders.css">
+
+    <style>
+        /* Additional status colours */
+
+        .status {
+            display: inline-block;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .status.pending {
+            background: #fff3d6;
+            color: #a66a00;
+        }
+
+        .status.verified {
+            background: #dcf5e9;
+            color: #16804a;
+        }
+
+        .status.processing {
+            background: #e1efff;
+            color: #2865a5;
+        }
+
+        .status.dispensed {
+            background: #d9f4f1;
+            color: #087f8c;
+        }
+
+        .status.completed {
+            background: #e5e7eb;
+            color: #374151;
+        }
+
+        .status.cancelled {
+            background: #ffe2e2;
+            color: #c62828;
+        }
+
+        .status-select {
+            padding: 8px;
+            border: 1px solid #d5e1e8;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
+        .message {
+            margin-top: 15px;
+            color: #087f8c;
+            font-weight: 600;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <!-- Navigation Bar -->
+
+    <header class="navbar">
+
+        <a href="index.html" class="logo">
+            ✚ Medi<span>Flow</span>
+        </a>
+
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="dashboard.html">Dashboard</a>
+            <a href="prescription.html">Prescriptions</a>
+            <a href="catalogue.html">Catalogue</a>
+            <a href="review.html">Reviews</a>
+            <a href="orders.html" class="active">Orders</a>
+            <a href="login.html" class="logout">Logout</a>
+        </nav>
+
+    </header>
+
+
+    <!-- Page Heading -->
+
+    <section class="hero">
+
+        <p class="tagline">ORDER MANAGEMENT</p>
+
+        <h1>Manage Your Orders</h1>
+
+        <p>Track orders and manage their dispensing status in one place.</p>
+
+    </section>
+
+
+    <main class="container">
+
+
+        <!-- Summary Cards -->
+
+        <section class="summary-grid">
+
+            <div class="summary-card">
+
+                <div class="summary-icon purple">📦</div>
+
+                <p>Total Orders</p>
+
+                <h2 id="totalOrders">5</h2>
+
+            </div>
+
+
+            <div class="summary-card">
+
+                <div class="summary-icon orange">⏳</div>
+
+                <p>Pending</p>
+
+                <h2 id="pendingOrders">2</h2>
+
+            </div>
+
+
+            <div class="summary-card">
+
+                <div class="summary-icon blue">🚚</div>
+
+                <p>Processing</p>
+
+                <h2 id="processingOrders">1</h2>
+
+            </div>
+
+
+            <div class="summary-card">
+
+                <div class="summary-icon green">💊</div>
+
+                <p>Dispensed Orders</p>
+
+                <h2 id="dispensedOrders">1</h2>
+
+            </div>
+
+        </section>
+
+
+        <!-- Orders Table -->
+
+        <section class="orders-panel">
+
+            <div class="panel-heading">
+
+                <div>
+
+                    <h2>Recent Orders</h2>
+
+                    <p>View and update sample pharmacy orders.</p>
+
+                </div>
+
+
+                <input
+                    type="search"
+                    id="orderSearch"
+                    placeholder="Search order ID or customer..."
+                    aria-label="Search orders">
+
+            </div>
+
+
+            <!-- Demo Notice -->
+
+            <div class="demo-notice">
+
+                This page uses sample data for a student project.
+                Status changes are not connected to a real order system.
+
+            </div>
+
+
+            <!-- Orders Table -->
+
+            <div class="table-wrapper">
+
+                <table>
+
+                    <thead>
+
+                        <tr>
+
+                            <th>Order ID</th>
+
+                            <th>Customer</th>
+
+                            <th>Medicine</th>
+
+                            <th>Quantity</th>
+
+                            <th>Total</th>
+
+                            <th>Order Date</th>
+
+                            <th>Current Status</th>
+
+                            <th>Update Status</th>
+
+                        </tr>
+
+                    </thead>
+
+
+                    <tbody id="ordersTable">
+
+
+                        <!-- Order 1 -->
+
+                        <tr data-status="Pending">
+
+                            <td>#MF1001</td>
+
+                            <td>Customer A</td>
+
+                            <td>Vitamin C</td>
+
+                            <td>2</td>
+
+                            <td>₹240</td>
+
+                            <td>26 Oct 2026</td>
+
+                            <td>
+                                <span class="status pending">
+                                    Pending
+                                </span>
+                            </td>
+
+                            <td>
+
+                                <select
+                                    class="status-select"
+                                    aria-label="Update order MF1001 status"
+                                    onchange="updateOrderStatus(this)">
+
+                                    <option selected>Pending</option>
+                                    <option>Verified</option>
+                                    <option>Processing</option>
+                                    <option>Dispensed</option>
+                                    <option>Completed</option>
+                                    <option>Cancelled</option>
+
+                                </select>
+
+                            </td>
+
+                        </tr>
+
+
+                        <!-- Order 2 -->
+
+                        <tr data-status="Processing">
+
+                            <td>#MF1002</td>
+
+                            <td>Customer B</td>
+
+                            <td>ORS</td>
+
+                            <td>3</td>
+
+                            <td>₹66</td>
+
+                            <td>26 Oct 2026</td>
+
+                            <td>
+                                <span class="status processing">
+                                    Processing
+                                </span>
+                            </td>
+
+                            <td>
+
+                                <select
+                                    class="status-select"
+                                    aria-label="Update order MF1002 status"
+                                    onchange="updateOrderStatus(this)">
+
+                                    <option>Pending</option>
+                                    <option>Verified</option>
+                                    <option selected>Processing</option>
+                                    <option>Dispensed</option>
+                                    <option>Completed</option>
+                                    <option>Cancelled</option>
+
+                                </select>
+
+                            </td>
+
+                        </tr>
+
+
+                        <!-- Order 3 -->
+
+                        <tr data-status="Dispensed">
+
+                            <td>#MF1003</td>
+
+                            <td>Customer C</td>
+
+                            <td>Multivitamin</td>
+
+                            <td>1</td>
+
+                            <td>₹180</td>
+
+                            <td>25 Oct 2026</td>
+
+                            <td>
+                                <span class="status dispensed">
+                                    Dispensed
+                                </span>
+                            </td>
+
+                            <td>
+
+                                <select
+                                    class="status-select"
+                                    aria-label="Update order MF1003 status"
+                                    onchange="updateOrderStatus(this)">
+
+                                    <option>Pending</option>
+                                    <option>Verified</option>
+                                    <option>Processing</option>
+                                    <option selected>Dispensed</option>
+                                    <option>Completed</option>
+                                    <option>Cancelled</option>
+
+                                </select>
+
+                            </td>
+
+                        </tr>
+
+
+                        <!-- Order 4 -->
+
+                        <tr data-status="Pending">
+
+                            <td>#MF1004</td>
+
+                            <td>Customer D</td>
+
+                            <td>Antacid</td>
+
+                            <td>2</td>
+
+                            <td>₹130</td>
+
+                            <td>25 Oct 2026</td>
+
+                            <td>
+                                <span class="status pending">
+                                    Pending
+                                </span>
+                            </td>
+
+                            <td>
+
+                                <select
+                                    class="status-select"
+                                    aria-label="Update order MF1004 status"
+                                    onchange="updateOrderStatus(this)">
+
+                                    <option selected>Pending</option>
+                                    <option>Verified</option>
+                                    <option>Processing</option>
+                                    <option>Dispensed</option>
+                                    <option>Completed</option>
+                                    <option>Cancelled</option>
+
+                                </select>
+
+                            </td>
+
+                        </tr>
+
+
+                        <!-- Order 5 -->
+
+                        <tr data-status="Cancelled">
+
+                            <td>#MF1005</td>
+
+                            <td>Customer E</td>
+
+                            <td>Sample medicine</td>
+
+                            <td>1</td>
+
+                            <td>₹90</td>
+
+                            <td>24 Oct 2026</td>
+
+                            <td>
+                                <span class="status cancelled">
+                                    Cancelled
+                                </span>
+                            </td>
+
+                            <td>
+
+                                <select
+                                    class="status-select"
+                                    aria-label="Update order MF1005 status"
+                                    onchange="updateOrderStatus(this)">
+
+                                    <option>Pending</option>
+                                    <option>Verified</option>
+                                    <option>Processing</option>
+                                    <option>Dispensed</option>
+                                    <option>Completed</option>
+                                    <option selected>Cancelled</option>
+
+                                </select>
+
+                            </td>
+
+                        </tr>
+
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+
+            <!-- No Orders Message -->
+
+            <p id="noOrders" class="empty-message" hidden>
+
+                No matching orders found.
+
+            </p>
+
+
+            <!-- Status Update Message -->
+
+            <p id="orderMessage" class="message" aria-live="polite"></p>
+
+
+        </section>
+
+    </main>
+
+
+    <!-- Footer -->
+
+    <footer>
+
+        <h3>MediFlow</h3>
+
+        <p>Smarter prescription management, simplified.</p>
+
+        <p>© 2026 MediFlow | Student Project Demo</p>
+
+    </footer>
+
+
+    <!-- JavaScript -->
+
+    <script>
+
+        // Search orders by ID, customer or medicine.
+
+        document.getElementById("orderSearch")
+            .addEventListener("input", function() {
+
+                const searchText = this.value.toLowerCase().trim();
+
+                const rows = document.querySelectorAll("#ordersTable tr");
+
+                let visibleCount = 0;
+
+                rows.forEach(function(row) {
+
+                    const matches = row.textContent
+                        .toLowerCase()
+                        .includes(searchText);
+
+                    row.style.display = matches ? "" : "none";
+
+                    if (matches) {
+                        visibleCount++;
+                    }
+
+                });
+
+                document.getElementById("noOrders").hidden =
+                    visibleCount !== 0;
+
+            });
+
+
+
+        // Update the status of a sample order.
+
+        function updateOrderStatus(select) {
+
+            const row = select.closest("tr");
+
+            const newStatus = select.value;
+
+            const statusBadge = row.querySelector(".status");
+
+
+            // Update status text.
+
+            statusBadge.textContent = newStatus;
+
+
+            // Update status colour.
+
+            statusBadge.className =
+                "status " + newStatus.toLowerCase();
+
+
+            // Update row status.
+
+            row.dataset.status = newStatus;
+
+
+            // Show confirmation message.
+
+            document.getElementById("orderMessage").textContent =
+
+                row.cells[0].textContent +
+
+                " status successfully changed to " +
+
+                newStatus +
+
+                " for this demo session.";
+
+
+            // Update summary cards.
+
+            updateSummary();
+
+        }
+
+
+
+        // Calculate order summary.
+
+        function updateSummary() {
+
+            const rows = document.querySelectorAll("#ordersTable tr");
+
+
+            const counts = {
+
+                Pending: 0,
+
+                Verified: 0,
+
+                Processing: 0,
+
+                Dispensed: 0,
+
+                Completed: 0,
+
+                Cancelled: 0
+
+            };
+
+
+            rows.forEach(function(row) {
+
+                const status = row.dataset.status;
+
+                if (Object.prototype.hasOwnProperty.call(counts, status)) {
+                    counts[status]++;
+                }
+
+            });
+
+
+            // Update total orders.
+
+            document.getElementById("totalOrders").textContent =
+                rows.length;
+
+
+            // Update pending orders.
+
+            document.getElementById("pendingOrders").textContent =
+                counts.Pending;
+
+
+            // Update processing orders.
+
+            document.getElementById("processingOrders").textContent =
+                counts.Processing;
+
+
+            // Update dispensed orders.
+
+            document.getElementById("dispensedOrders").textContent =
+                counts.Dispensed;
+
+        }
+
+
+        // Calculate summary when page loads.
+
+        updateSummary();
+
+    </script>
+
+
+</body>
+
+</html>
